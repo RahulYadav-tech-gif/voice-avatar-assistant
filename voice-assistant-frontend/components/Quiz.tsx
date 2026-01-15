@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+
 
 export interface QuizAnswer {
   id: string;

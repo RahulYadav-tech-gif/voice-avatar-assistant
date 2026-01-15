@@ -3,6 +3,18 @@ import { motion, AnimatePresence } from "framer-motion";
 import FlashCard, { FlashCardData } from "./FlashCard";
 import { useRoomContext, useVoiceAssistant } from "@livekit/components-react";
 
+interface FlashCardPayload {
+  action: "show" | "flip" | "hide";
+  id?: string;
+  question?: string;
+  answer?: string;
+  index?: number;
+}
+
+interface RpcFlashCardData {
+  payload: string | FlashCardPayload;
+}
+
 export default function FlashCardContainer() {
   const [flashCards, setFlashCards] = useState<FlashCardData[]>([]);
   const [currentCardIndex, setCurrentCardIndex] = useState<number | null>(null);
@@ -14,7 +26,7 @@ export default function FlashCardContainer() {
     if (!room) return;
 
     // Register RPC method to receive flash cards
-    const handleShowFlashCard = async (data: any): Promise<string> => {
+    const handleShowFlashCard = async (data: RpcFlashCardData): Promise<string> => {
       try {
         console.log("Received flashcard RPC data:", data);
         

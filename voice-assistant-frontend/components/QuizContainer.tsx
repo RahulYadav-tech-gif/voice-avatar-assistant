@@ -1,12 +1,22 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRoomContext, useVoiceAssistant } from "@livekit/components-react";
-import Quiz, { QuizQuestion, QuizAnswer } from "./Quiz";
+import Quiz, { QuizQuestion} from "./Quiz";
 
 export interface SubmittedQuiz {
   id: string;
   questions: QuizQuestion[];
   answers: Record<string, string>;
+}
+
+interface QuizPayload {
+  action: "show" | "hide";
+  id?: string;
+  questions?: QuizQuestion[];
+}
+
+interface RpcQuizData {
+  payload: string | QuizPayload;
 }
 
 export default function QuizContainer() {
@@ -22,7 +32,7 @@ export default function QuizContainer() {
     if (!room) return;
 
     // Register RPC method to receive quizzes
-    const handleShowQuiz = async (data: any): Promise<string> => {
+    const handleShowQuiz = async (data: RpcQuizData): Promise<string> => {
       try {
         console.log("Received quiz RPC data:", data);
         
