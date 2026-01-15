@@ -687,7 +687,7 @@ You are a friendly AI assistant.
 Always speak English.
 Keep responses short and conversational.
 """,
-            stt=deepgram.STT(language="en-US"),
+            stt="assemblyai/universal-streaming",
             llm=openai.LLM(model="gpt-4o-mini"),
             tts=elevenlabs.TTS(voice_id="21m00Tcm4TlvDq8ikWAM"),
             vad=silero.VAD.load(),
