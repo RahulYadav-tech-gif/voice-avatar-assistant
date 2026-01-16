@@ -33,7 +33,7 @@ export default function Page() {
     // own participant name, and possibly to choose from existing rooms to join.
 
     const url = new URL(
-      "/api/connection-details",
+      process.env.NEXT_PUBLIC_CONN_DETAILS_ENDPOINT ?? "/api/connection-details",
       window.location.origin
     );
     const response = await fetch(url.toString());
